@@ -40,7 +40,7 @@ public class DoctorAppointmentScheduler {
             Response response = getAppointment();
 
             // If the response code is 204, then all appointments have been handle and program can end
-            if (response.code() == 204) return;
+            if (response.code() == 204) break;
 
             try {
                 scheduleAppointment(response.body().string());
@@ -50,6 +50,8 @@ public class DoctorAppointmentScheduler {
                 System.out.println("Problem parsing json body");
             }
         }
+
+        System.out.println("All appointments scheduled! Thanks for using the Doctor Appointment Scheduler!");
     }
 
 
@@ -239,7 +241,7 @@ public class DoctorAppointmentScheduler {
             postAppointment(1, personId, day, isNew, requestId);
             appointmentsDoctorMap.put(day, new ArrayList<Integer>());
             appointmentsDoctorMap.get(day).add(1);
-            
+
             if (!personAppointmentMap.containsKey(personId)) {
                 personAppointmentMap.put(personId, new ArrayList<String>());
             }
